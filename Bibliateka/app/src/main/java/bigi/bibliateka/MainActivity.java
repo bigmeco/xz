@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         fragmentManager = getSupportFragmentManager();
         initToolbar();
         initMenuFragment();
-       // addFragment(new MainFragment(), true, R.id.container);
     }
     private void initMenuFragment() {
         MenuParams menuParams = new MenuParams();
@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         MenuObject like = new MenuObject("Like profile");
         Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.icn_2);
         like.setBitmap(b);
-
+        // растягивание ресунка
+        like.setScaleType(ImageView.ScaleType.MATRIX);
         MenuObject addFr = new MenuObject("Add to friends");
         BitmapDrawable bd = new BitmapDrawable(getResources(),
                 BitmapFactory.decodeResource(getResources(), R.drawable.icn_2));
@@ -116,19 +117,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClickLi
         mToolBarTextView.setText("Samantha");
     }
 
-    protected void addFragment(Fragment fragment, boolean addToBackStack, int containerId) {
-        invalidateOptionsMenu();
-        String backStackName = fragment.getClass().getName();
-        boolean fragmentPopped = fragmentManager.popBackStackImmediate(backStackName, 0);
-        if (!fragmentPopped) {
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.add(containerId, fragment, backStackName)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            if (addToBackStack)
-                transaction.addToBackStack(backStackName);
-            transaction.commit();
-        }
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
