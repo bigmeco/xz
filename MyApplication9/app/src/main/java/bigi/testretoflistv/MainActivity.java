@@ -13,6 +13,8 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import bigi.testretoflistv.POJO.ExampleNewF;
+import bigi.testretoflistv.POJO.ResultNewF;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private ArrayList<AndroidVersion> data;
+    private ArrayList<ResultNewF> data;
     private DataAdapter adapter;
 
     @Override
@@ -40,23 +42,24 @@ public class MainActivity extends AppCompatActivity {
     }
     private void loadJSON(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://api.learn2crack.com")
+                .baseUrl("https://api.themoviedb.org/3/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RequestInterface request = retrofit.create(RequestInterface.class);
-        Call<JSONResponse> call = request.getJSON();
-        call.enqueue(new Callback<JSONResponse>() {
+        Call<ExampleNewF> call = request.getJSON(1);
+        call.enqueue(new Callback<ExampleNewF>() {
             @Override
-            public void onResponse(Call<JSONResponse> call, Response<JSONResponse> response) {
+            public void onResponse(Call<ExampleNewF> call, Response<ExampleNewF> response) {
 
-                JSONResponse jsonResponse = response.body();
-                data = new ArrayList<>(Arrays.asList(jsonResponse.getAndroid()));
+                ExampleNewF exampleNewF = response.body();
+                System.out.println(exampleNewF.getTotalPages()+ "fffffffffffffffffffffffffffffffffffffffffffffffff");
+                data = new ArrayList<>(exampleNewF.getAndroid());
                 adapter = new DataAdapter(data);
                 recyclerView.setAdapter(adapter);
             }
 
             @Override
-            public void onFailure(Call<JSONResponse> call, Throwable t) {
+            public void onFailure(Call<ExampleNewF> call, Throwable t) {
                 Log.d("Error",t.getMessage());
             }
         });
