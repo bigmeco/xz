@@ -1,5 +1,6 @@
 package bigi.testretoflistv;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import bigi.testretoflistv.POJO.ExampleNewF;
 import bigi.testretoflistv.POJO.ResultNewF;
@@ -24,8 +26,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private ArrayList<ResultNewF> data;
+    private List<ResultNewF> movieArrayList;
     private DataAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +36,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initViews();
     }
-    private void initViews(){
-        recyclerView = (RecyclerView)findViewById(R.id.card_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
+
+    private void initViews() {
+        recyclerView = (RecyclerView) findViewById(R.id.card_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         loadJSON();
     }
-    private void loadJSON(){
+
+    private void loadJSON() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.themoviedb.org/3/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -50,17 +54,14 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<ExampleNewF>() {
             @Override
             public void onResponse(Call<ExampleNewF> call, Response<ExampleNewF> response) {
+                List<ResultNewF> movies = response.body().getResults();
+                recyclerView.setAdapter(new DataAdapter(movies, getApplicationContext()));
 
-                ExampleNewF exampleNewF = response.body();
-                System.out.println(exampleNewF.getTotalPages()+ "fffffffffffffffffffffffffffffffffffffffffffffffff");
-                data = new ArrayList<>(exampleNewF.getAndroid());
-                adapter = new DataAdapter(data);
-                recyclerView.setAdapter(adapter);
             }
 
             @Override
             public void onFailure(Call<ExampleNewF> call, Throwable t) {
-                Log.d("Error",t.getMessage());
+                Log.d("Error", t.getMessage());
             }
         });
     }

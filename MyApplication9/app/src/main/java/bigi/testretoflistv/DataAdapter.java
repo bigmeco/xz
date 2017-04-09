@@ -6,26 +6,31 @@ package bigi.testretoflistv;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import bigi.testretoflistv.POJO.ResultNewF;
 
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     private static final String Imeg = "https://image.tmdb.org/t/p/w500";
-    private ArrayList<ResultNewF> android;
+    private List<ResultNewF> android;
+    private final Context context;
 
-    public DataAdapter(ArrayList<ResultNewF> android) {
+    public DataAdapter(List<ResultNewF> android, Context applicationContext) {
         this.android = android;
+        context = applicationContext;
     }
+
 
     @Override
     public DataAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -39,14 +44,11 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         viewHolder.tv_name.setText(android.get(i).getTitle());
         viewHolder.tv_version.setText(android.get(i).getOverview());
         viewHolder.tv_api_level.setText(android.get(i).getReleaseDate());
-        //viewHolder.imageView.setText(android.get(i).getReleaseDate());
-//         ImageView imageView;
-//        viewHolder.imageView = (ImageView)view.findViewById(R.id.imageView);
-//        Picasso.with()
-//                .load(Imeg + android.get(i).getBackdropPath())
-//                .placeholder(R.mipmap.ic_launcher)
-//                .error(R.mipmap.ic_launcher)
-//                .into(imageView);
+        Picasso.with(context)
+                .load(Imeg + android.get(i).getBackdropPath())
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(viewHolder.imageView);
     }
 
     @Override
@@ -54,18 +56,43 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         return android.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView tv_name,tv_version,tv_api_level;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView tv_name, tv_version, tv_api_level;
         private ImageView imageView;
+
         public ViewHolder(View view) {
             super(view);
 
-            tv_name = (TextView)view.findViewById(R.id.tv_name);
-            tv_version = (TextView)view.findViewById(R.id.tv_version);
-            tv_api_level = (TextView)view.findViewById(R.id.tv_api_level);
-            imageView = (ImageView)view.findViewById(R.id.imageView);
+            tv_name = (TextView) view.findViewById(R.id.tv_name);
+            tv_version = (TextView) view.findViewById(R.id.tv_version);
+            tv_api_level = (TextView) view.findViewById(R.id.tv_api_level);
+            imageView = (ImageView) view.findViewById(R.id.imageView);
 
+            // on item click
+            itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    // get position
+                    int pos = getAdapterPosition();
+                    // check if item still exists
+//                    if(pos != RecyclerView.NO_POSITION){
+//
+//                        ResultNewF clickedDataItem = ResultNewF.get(pos);
+//                        Intent intent = new Intent(context, клас полного филм .class);
+//                        intent.putExtra("movie_title", ResultNewF.get(pos).getTitle());
+//                        intent.putExtra("movie_actors", ResultNewF.get(pos).getActors());
+//                        intent.putExtra("movie_cover", ResultNewF.get(pos).getCover());
+//                        intent.putExtra("movie_director", ResultNewF.get(pos).getDirector());
+//                        intent.putExtra("movie_year", ResultNewF.get(pos).getYear());
+//                        intent.putExtra("movie_plot", ResultNewF.get(pos).getPlot());
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        context.startActivity(intent);
+//                        Toast.makeText(v.getContext(), "You clicked " + clickedDataItem.getTitle(), Toast.LENGTH_SHORT).show();
+//                    }
+                }
+            });
         }
     }
+
 
 }
