@@ -6,14 +6,12 @@ package bigi.testretoflistv;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -69,26 +67,12 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             imageView = (ImageView) view.findViewById(R.id.imageView);
 
             // on item click
-            itemView.setOnClickListener(new View.OnClickListener(){
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // get position
                     int pos = getAdapterPosition();
-                    // check if item still exists
-//                    if(pos != RecyclerView.NO_POSITION){
-//
-//                        ResultNewF clickedDataItem = ResultNewF.get(pos);
-//                        Intent intent = new Intent(context, клас полного филм .class);
-//                        intent.putExtra("movie_title", ResultNewF.get(pos).getTitle());
-//                        intent.putExtra("movie_actors", ResultNewF.get(pos).getActors());
-//                        intent.putExtra("movie_cover", ResultNewF.get(pos).getCover());
-//                        intent.putExtra("movie_director", ResultNewF.get(pos).getDirector());
-//                        intent.putExtra("movie_year", ResultNewF.get(pos).getYear());
-//                        intent.putExtra("movie_plot", ResultNewF.get(pos).getPlot());
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        context.startActivity(intent);
-//                        Toast.makeText(v.getContext(), "You clicked " + clickedDataItem.getTitle(), Toast.LENGTH_SHORT).show();
-//                    }
+
                 }
             });
         }
