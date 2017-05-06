@@ -2,16 +2,16 @@
  * Created by bigi on 26.03.2017.
  */
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.FieldMap;
 import retrofit2.http.POST;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class Main {
 
@@ -43,7 +43,7 @@ public class Main {
 
         // Create an instance of our GitHub API interface.
         GitHub github = retrofit.create(GitHub.class);
-        Map<String,String> mapjs = new HashMap<String, String>();
+        Map<String, String> mapjs = new HashMap<String, String>();
         mapjs.put("login", "admin");
         mapjs.put("password", "password");
         // Create a call instance for looking up Retrofit contributors.

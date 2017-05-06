@@ -15,75 +15,75 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        // СОЗДАНИЕ КНОПКИ
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        final DrawerArrowDrawable indicator = new DrawerArrowDrawable(this);
-//        // цвет кнопки меню
-//        indicator.setColor(Color.GREEN);
-//        getSupportActionBar().setHomeAsUpIndicator(indicator);
+      //   СОЗДАНИЕ КНОПКИ
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        final DrawerArrowDrawable indicator = new DrawerArrowDrawable(this);
+        // цвет кнопки меню
+        indicator.setColor(Color.GREEN);
+        getSupportActionBar().setHomeAsUpIndicator(indicator);
 
-        // setTransformer();
+         setTransformer();
 
-//        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-//        drawerLayout.setScrimColor(Color.TRANSPARENT);
-//        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-//            @Override
-//            public void onDrawerSlide(View drawerView, float slideOffset) {
-//                if (((ViewGroup) drawerView).getChildAt(1).getId() == R.id.leftSideBar) {
-//                    indicator.setProgress(slideOffset);
-//                }
-//            }
-//        });
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        drawerLayout.setScrimColor(Color.TRANSPARENT);
+        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                if (((ViewGroup) drawerView).getChildAt(1).getId() == R.id.leftSideBar) {
+                    indicator.setProgress(slideOffset);
+                }
+            }
+        });
 
     }
 
-    // НАСТРОЙКА ОТКЛИКА
-//    private void setTransformer() {
-//        final float spacing = getResources().getDimensionPixelSize(R.dimen.spacing);
-//        SideBar rightSideBar = (SideBar) findViewById(R.id.rightSideBar);
-//        rightSideBar.setTransformer(new Transformer() {
-//            private View lastHoverView;
-//
-//            @Override
-//            public void apply(ViewGroup sideBar, View itemView, float touchY, float slideOffset, boolean isLeft) {
-//                boolean hovered = itemView.isPressed();
-//                if (hovered && lastHoverView != itemView) {
-//                    animateIn(itemView);
-//                    animateOut(lastHoverView);
-//                    lastHoverView = itemView;
-//                }
-//            }
-//
-//            private void animateOut(View view) {
-//                if (view == null) {
-//                    return;
-//                }
-//                ObjectAnimator translationX = ObjectAnimator.ofFloat(view, "translationX", -spacing, 0);
-//                translationX.setDuration(200);
-//                translationX.start();
-//            }
-//
-//            private void animateIn(View view) {
-//                ObjectAnimator translationX = ObjectAnimator.ofFloat(view, "translationX", 0, -spacing);
-//                translationX.setDuration(200);
-//                translationX.start();
-//            }
-//        });
-//    }
+  //   НАСТРОЙКА ОТКЛИКА
+    private void setTransformer() {
+        final float spacing = getResources().getDimensionPixelSize(R.dimen.spacing);
+        SideBar rightSideBar = (SideBar) findViewById(R.id.rightSideBar);
+        rightSideBar.setTransformer(new Transformer() {
+            private View lastHoverView;
+
+            @Override
+            public void apply(ViewGroup sideBar, View itemView, float touchY, float slideOffset, boolean isLeft) {
+                boolean hovered = itemView.isPressed();
+                if (hovered && lastHoverView != itemView) {
+                    animateIn(itemView);
+                    animateOut(lastHoverView);
+                    lastHoverView = itemView;
+                }
+            }
+
+            private void animateOut(View view) {
+                if (view == null) {
+                    return;
+                }
+                ObjectAnimator translationX = ObjectAnimator.ofFloat(view, "translationX", -spacing, 0);
+                translationX.setDuration(200);
+                translationX.start();
+            }
+
+            private void animateIn(View view) {
+                ObjectAnimator translationX = ObjectAnimator.ofFloat(view, "translationX", 0, -spacing);
+                translationX.setDuration(200);
+                translationX.start();
+            }
+        });
+    }
 
 
-    // ПО НАЖАТИЮ КНОПКИ МЕНЮ
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getItemId() == android.R.id.home) {
-//            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-//                drawerLayout.closeDrawer(GravityCompat.START);
-//            } else {
-//                drawerLayout.openDrawer(GravityCompat.START);
-//            }
-//        }
-//        return true;
-//    }
+   //  ПО НАЖАТИЮ КНОПКИ МЕНЮ
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            } else {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        }
+        return true;
+    }
 // КОН
     public void onClick(View view) {
         if (view instanceof TextView) {
